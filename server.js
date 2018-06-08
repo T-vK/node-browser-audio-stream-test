@@ -91,7 +91,7 @@ function setupStream(socket) {
     //playStream(socket)
     //socket.pipe(speakerInstance)
     
-    /*let speakerInstance = new Speaker(speakerConfig)
+    let speakerInstance = new Speaker(speakerConfig)
     speakerInstance.on('open', () => {
         console.log("Speaker event: open")
     })
@@ -100,10 +100,10 @@ function setupStream(socket) {
     })
     speakerInstance.on('close', () => {
         console.log("Speaker event: close")
-    })*/
+    })
 
     ss(socket).on('client-connect', (stream, data) => { // stream: duplex stream
-        //stream.pipe(speakerInstance) //speakerInstance: writable stream
+        stream.pipe(speakerInstance) //speakerInstance: writable stream
         micInputStream.pipe(stream) //micInputStream: readable stream
         micInstance.start()
     })
@@ -114,8 +114,8 @@ function setupStream(socket) {
         micInputStream = undefined
         micInstance = undefined
         socket.destroy()
-        /*speakerInstance.destroy()
-        speakerInstance = undefined*/
+        speakerInstance.destroy()
+        speakerInstance = undefined
         busy = false
     })
 }
