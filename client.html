@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/socket.io-stream.js"></script>
+        <script>
+            const socket = io()
+
+            navigator.mediaDevices.getUserMedia({audio:true}).then(clientMicStream => { // Get microphone input
+                    // Create a duplex stream using the socket.io-stream library and emit it it to the server
+                    const stream = ss.createStream() //stream: duplex stream
+                    ss(socket).emit('client-connect', stream)
+                    
+                    // Send microphone input to the server by piping it into the stream
+                    clientMicStream.pipe(stream) //clientMicStream: readable stream
+
+                    // Play audio received from the server through the stream
+                    const aCtx = new AudioContext()
+                    const analyser = aCtx.createAnalyser()
+                    const microphone = aCtx.createMediaStreamSource(stream)
+                    microphone.connect(analyser)
+                    analyser.connect(aCtx.destination)
+            }).catch(e => {
+                console.error('Error capturing audio.')
+                alert('Error capturing audio.')
+            })
+        </script>
+    </head>
+    <body>
+    <h1>node-browser-audio-stream-test</h1>
+    <h3>Check the server console and the browser console for logs and errors. This site will remain emtpy.</h3>
+    </body>
+</html>

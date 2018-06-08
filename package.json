@@ -1,0 +1,48 @@
+{
+  "name": "node-browser-audio-stream-test",
+  "version": "1.0.0",
+  "description": "node-browser-audio-stream-test",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "apt-install-alsa": "sudo apt-get update && sudo apt-get install libasound2-dev alsa-base alsa-utils",
+    "dnf-install-alsa": "sudo dnf install alsa-lib-devel alsa-utils alsa-lib",
+    "alsa-test-1": "arecord -D hw:1,0 -f S16_LE -r 44100 -c 1 | aplay -D plughw:CARD=1,DEV=0",
+    "alsa-test-2": "arecord -D hw:0,0 -f S16_LE -r 44100 -c 2 | aplay -D plughw:CARD=0,DEV=0",
+    "alsa-test-3": "arecord -D hw:1,0 -f S16_LE -r 44100 -c 1 | aplay -D plughw:1,0 -c 2",
+    "alsa-test-4": "arecord -D plughw:2,0 -f S16_LE -r 44100 -c 2 | aplay -D hw:2,0 -f S16_LE -r 44100 -c 2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/T-vK/node-browser-audio-stream-test.git"
+  },
+  "keywords": [
+    "VoIP",
+    "LAN",
+    "TeamSpeak",
+    "Skype",
+    "nodejs",
+    "browser",
+    "voice",
+    "audio",
+    "call",
+    "talk",
+    "chat",
+    "communication"
+  ],
+  "author": "T-vK",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/T-vK/node-browser-audio-stream-test/issues"
+  },
+  "homepage": "https://github.com/T-vK/node-browser-audio-stream-test#readme",
+  "dependencies": {
+    "commander": "^2.11.0",
+    "koa": "^2.5.1",
+    "koa-router": "^7.4.0",
+    "mic": "^2.1.2",
+    "speaker": "^0.4.1",
+    "socket.io": "^2.1.1",
+    "socket.io-stream": "^0.9.1"
+  }
+}
